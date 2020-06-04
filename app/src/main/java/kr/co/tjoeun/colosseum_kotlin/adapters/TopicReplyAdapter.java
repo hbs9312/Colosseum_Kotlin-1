@@ -1,6 +1,7 @@
 package kr.co.tjoeun.colosseum_kotlin.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import kr.co.tjoeun.colosseum_kotlin.R;
+import kr.co.tjoeun.colosseum_kotlin.ViewReplyActivity;
 import kr.co.tjoeun.colosseum_kotlin.datas.TopicReply;
 import kr.co.tjoeun.colosseum_kotlin.datas.TopicSide;
 import kr.co.tjoeun.colosseum_kotlin.utils.ServerUtil;
@@ -185,6 +187,14 @@ public class TopicReplyAdapter extends ArrayAdapter<TopicReply> {
                         }
                     }
                 });
+            }
+        });
+
+        replyCountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(mContext, ViewReplyActivity.class);
+                mContext.startActivity(myIntent);
             }
         });
 
