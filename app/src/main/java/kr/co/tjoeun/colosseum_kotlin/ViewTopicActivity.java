@@ -20,6 +20,7 @@ import kr.co.tjoeun.colosseum_kotlin.databinding.ActivityViewTopicBinding;
 import kr.co.tjoeun.colosseum_kotlin.datas.Topic;
 import kr.co.tjoeun.colosseum_kotlin.datas.TopicReply;
 import kr.co.tjoeun.colosseum_kotlin.datas.TopicSide;
+import kr.co.tjoeun.colosseum_kotlin.utils.GlobalData;
 import kr.co.tjoeun.colosseum_kotlin.utils.ServerUtil;
 
 public class ViewTopicActivity extends BaseActivity {
@@ -46,8 +47,16 @@ public class ViewTopicActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TopicReply clickedReply = mTopic.getReplyList().get(position);
 
-//                댓글의 작성자 id는 받을 수 있지만, 내 id를 알 수가 없다.
-//                clickedReply.getWriter().getId()
+//                댓글의 작성자 id는 받을 수 있다 => GlobalData에서 내 id도 받을 수 있다!
+                if(clickedReply.getWriter().getId() == GlobalData.loginUser.getId()) {
+
+//                    내 댓글이니 수정창으로 이동.
+                    Intent myIntent = new Intent(mContext, EditReplyActivity.class);
+//                    어느 댓글을 수정할지 id값 전달
+                    myIntent.putExtra("replyId", clickedReply.getId());
+                    startActivity(myIntent);
+
+                }
             }
         });
 
