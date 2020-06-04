@@ -194,7 +194,9 @@ public class TopicReplyAdapter extends ArrayAdapter<TopicReply> {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(mContext, ViewReplyActivity.class);
+                myIntent.putExtra("replyId", data.getId());
                 mContext.startActivity(myIntent);
+
             }
         });
 
