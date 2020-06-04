@@ -1,8 +1,10 @@
 package kr.co.tjoeun.colosseum_kotlin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,7 +44,7 @@ public class EditReplyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                String input = binding.contentEdt.getText().toString();
+                final String input = binding.contentEdt.getText().toString();
 
                 if (replyId == -1) {
                     ServerUtil.postRequestReply(mContext, topicId, input, new ServerUtil.JsonResponseHandler() {
@@ -83,12 +85,33 @@ public class EditReplyActivity extends BaseActivity {
                 }
                 else {
 //                    댓글을 수정해야 하는 경우
-                    ServerUtil.putRequestReply(mContext, replyId, input, new ServerUtil.JsonResponseHandler() {
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                    alert.setTitle("의견 수정");
+                    alert.setMessage("정말 이 의견을 수정하시겠습니까? 의견을 수정해도 이전 내용은 계속 보관됩니다.");
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onResponse(JSONObject json) {
-                            Log.d("댓글달기응답", json.toString());
+                        public void onClick(DialogInterface dialog, int which) {
+                            ServerUtil.putRequestReply(mContext, replyId, input, new ServerUtil.JsonResponseHandler() {
+                                @Override
+                                public void onResponse(JSONObject json) {
+                                    Log.d("댓글달기응답", json.toString());
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(mContext, "의견 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
+                    alert.setNegativeButton("취소", null);
+                    alert.show();
+
+
                 }
 
 
