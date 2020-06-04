@@ -93,9 +93,11 @@ public class TopicReplyAdapter extends ArrayAdapter<TopicReply> {
         createdAtTxt.setText(data.getFormattedTimeAgo());
 
 //        좋아요 / 싫어요 갯수 표시
-
         likeCountBtn.setText(String.format("좋아요 %,d", data.getLikeCount()));
         dislikeCountBtn.setText(String.format("싫어요 %,d", data.getDislikeCount()));
+
+//        대댓글 갯수 표시
+        replyCountBtn.setText(String.format("답글 %,d", data.getReplyCount()));
 
         if(data.isMylike()) {
 
