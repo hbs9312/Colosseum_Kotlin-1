@@ -197,6 +197,7 @@ public class TopicReplyAdapter extends ArrayAdapter<TopicReply> {
             public void onClick(View v) {
                 Intent myIntent = new Intent(mContext, ViewReplyActivity.class);
                 myIntent.putExtra("replyId", data.getId());
+//                진영 목록을 넘겨줄 방법.
                 mContext.startActivity(myIntent);
 
             }
