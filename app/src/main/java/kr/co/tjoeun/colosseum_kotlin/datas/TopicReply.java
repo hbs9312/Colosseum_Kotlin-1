@@ -19,6 +19,7 @@ public class TopicReply {
     private int dislikeCount;
     private boolean isMylike;
     private boolean isMyDislike;
+    private int replyCount;
 
     public static TopicReply getTopicReplyFromJson(JSONObject jsonObject) {
         TopicReply tr = new TopicReply();
@@ -61,6 +62,8 @@ public class TopicReply {
             tr.dislikeCount = jsonObject.getInt("dislike_count");
             tr.isMylike = jsonObject.getBoolean("my_like");
             tr.isMyDislike = jsonObject.getBoolean("my_dislike");
+
+            tr.replyCount = jsonObject.getInt("reply_count");
 
 
         } catch (JSONException e) {
@@ -184,5 +187,13 @@ public class TopicReply {
 
     public void setMyDislike(boolean myDislike) {
         isMyDislike = myDislike;
+    }
+
+    public int getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(int replyCount) {
+        this.replyCount = replyCount;
     }
 }
