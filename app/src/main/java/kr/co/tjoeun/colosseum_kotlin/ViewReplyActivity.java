@@ -4,13 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import kr.co.tjoeun.colosseum_kotlin.databinding.ActivityViewReplyBinding;
+import kr.co.tjoeun.colosseum_kotlin.datas.Topic;
+import kr.co.tjoeun.colosseum_kotlin.datas.TopicReply;
+import kr.co.tjoeun.colosseum_kotlin.utils.ServerUtil;
 
 public class ViewReplyActivity extends BaseActivity {
 
     ActivityViewReplyBinding binding;
     int replyId = -1;
+    TopicReply mReplyData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,37 @@ public class ViewReplyActivity extends BaseActivity {
 
     void getReplyDataFromServer() {
 
+        ServerUtil.getRequestTopicReplyById(mContext, replyId, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
 
+                Log.d("의견상세", json.toString());
+
+                try {
+                    JSONObject data = json.getJSONObject("data");
+                    JSONObject reply = data.getJSONObject("reply");
+
+                    mReplyData = TopicReply.getTopicReplyFromJson(reply);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setUiByReplyData();
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    void setUiByReplyData() {
+        binding.writerNickNameTxt.setText(mReplyData.getWriter().getNickName());
+        binding.contentTxt.setText(mReplyData.getContent());
     }
 }
 
