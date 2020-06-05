@@ -117,7 +117,7 @@ public class Notification {
         this.focusObjectId = focusObjectId;
     }
 
-    public Calendar getCreateAt() {
-        return createAt;
+    public Calendar getCreatedAt() {
+        return createdAt;
     }
 }
