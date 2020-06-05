@@ -35,9 +35,11 @@
     </LinearLayout>
 
     <ImageView
+        android:padding="6dp"
         android:id="@+id/notificationImg"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/noti_icon"
+        android:scaleType="centerCrop"/>
 
 </LinearLayout>
