@@ -21,6 +21,7 @@ public class Notification {
     private Calendar createdAt = Calendar.getInstance();
 
     public static Notification getNotiFromJson (JSONObject json) {
+
         Notification noti = new Notification();
 
         try {
