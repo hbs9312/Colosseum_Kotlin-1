@@ -20,7 +20,7 @@ public class Notification {
     private int focusObjectId;
     private Calendar createdAt = Calendar.getInstance();
 
-    public Notification getNotiFromJson (JSONObject json) {
+    public static Notification getNotiFromJson (JSONObject json) {
         Notification noti = new Notification();
 
         try {
