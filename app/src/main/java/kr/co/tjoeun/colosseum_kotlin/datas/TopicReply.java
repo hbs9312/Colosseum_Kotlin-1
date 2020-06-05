@@ -15,6 +15,7 @@ public class TopicReply {
 
     private int id;
     private int side_id;
+    private TopicSide selectedSide;
     private String content;
     private User writer;
     private Calendar createdAt = Calendar.getInstance(); // 작성 일시 기록
@@ -36,6 +37,9 @@ public class TopicReply {
             tr.id = jsonObject.getInt("id");
             tr.side_id = jsonObject.getInt("side_id");
             tr.content = jsonObject.getString("content");
+
+            JSONObject selected_side = jsonObject.getJSONObject("selected_side");
+            tr.selectedSide = TopicSide.getTopicSideFromJson(selected_side);
 
 
 //            댓글 json 안에 있는 user Json 추출
@@ -218,5 +222,13 @@ public class TopicReply {
 
     public List<TopicReply> getReplyList() {
         return replyList;
+    }
+
+    public TopicSide getSelectedSide() {
+        return selectedSide;
+    }
+
+    public void setSelectedSide(TopicSide selectedSide) {
+        this.selectedSide = selectedSide;
     }
 }
